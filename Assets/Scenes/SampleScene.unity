@@ -995,7 +995,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   canSeePlayer: 0
-  agentMove: 0
+  agentMove: 1
 --- !u!1 &1256596573
 GameObject:
   m_ObjectHideFlags: 0
