@@ -8,24 +8,14 @@ public class FieldOfView : MonoBehaviour
     public float radius;
     [Range(0f, 360f)] public float angle;
 
-    public GameObject player;
-
     public LayerMask targetMask;
     public LayerMask obstructionMask;
 
     public bool canSeePlayer;
 
-    NavMeshAgent agent;
-    public bool agentMove = true;
-
     // Start is called before the first frame update
     void Start()
     {
-        if(player == null)
-            player = GameObject.FindGameObjectWithTag("Player");
-
-        agent = GetComponent<NavMeshAgent>();
-
         StartCoroutine(FOVRoutine());
     }
     
@@ -57,9 +47,6 @@ public class FieldOfView : MonoBehaviour
                 if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask)) 
                 {
                     canSeePlayer = true;
-
-                    if(agentMove)
-                        agent.SetDestination(player.transform.position); // Move toward player
                 }
                 else canSeePlayer = false;
             }

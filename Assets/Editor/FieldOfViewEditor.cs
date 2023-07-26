@@ -20,8 +20,11 @@ public class FieldOfViewEditor : Editor
 
         if (fov.canSeePlayer) 
         {
-            Handles.color = Color.green;
-            Handles.DrawLine(fov.transform.position, fov.player.transform.position);
+            Handles.color = new Color(0f, 1f, 0f, 0.2f); // Green with alpha value
+
+            //Handles.DrawLine(fov.transform.position, fov.player.transform.position);
+            Handles.DrawSolidArc(fov.transform.position, Vector3.up, Vector3.forward, -fov.angle / 2, fov.radius);
+            Handles.DrawSolidArc(fov.transform.position, Vector3.up, Vector3.forward, fov.angle / 2, fov.radius);
         }
     }
 
