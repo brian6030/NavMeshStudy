@@ -13,6 +13,10 @@ public class NavmeshAgentMovement : MonoBehaviour
 
     public bool agentMove = true;
 
+    public Transform[] waypoints;
+    int waypointIndex;
+    Vector3 target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +27,46 @@ public class NavmeshAgentMovement : MonoBehaviour
 
         animator = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
+
+        UpdateDestination();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (fieldOfView.canSeePlayer && agentMove)
+        if(agentMove) 
         {
-            agent.SetDestination(playerTransform.position); // Move toward player
+            if (fieldOfView.canSeePlayer)
+            {
+                agent.SetDestination(playerTransform.position); // Move toward player
+            }
+            else if (Vector3.Distance(transform.position, target) < 1)
+            {
+                IterateWaypointIndex();
+                UpdateDestination();
+            }
+            else 
+            {
+                UpdateDestination();
+            }
         }
 
         animator.SetFloat("Speed", agent.velocity.magnitude);
     }
+    void IterateWaypointIndex()
+    {
+        waypointIndex++;
+        if(waypointIndex == waypoints.Length) 
+        {
+            waypointIndex = 0;
+        }
+    }
+
+    void UpdateDestination()
+    {
+        target = waypoints[waypointIndex].position;
+        agent.SetDestination(target);
+    }
+
+
 }

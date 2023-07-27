@@ -13,6 +13,8 @@ public class FieldOfView : MonoBehaviour
 
     public bool canSeePlayer;
 
+    public Transform player;
+
     // Start is called before the first frame update
     void Start()
     {
